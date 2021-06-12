@@ -1,15 +1,18 @@
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const express = require("express");
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import express from "express";
 
-const UsersRoute = require("./routes/Users-route");
-const ReservesRoute = require("./routes/Reserve-route");
-const HttpError = require("./utils/Http-error");
+import UsersRoute from "./routes/Users-route.js";
+import ReservesRoute from "./routes/Reserve-route.js";
+import HttpError from "./utils/Http-error.js";
 
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
+import cors from "cors";
+
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {

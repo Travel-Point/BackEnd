@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+export const Schema = mongoose.Schema;
 
 const PlaceSchema = new Schema({
     numberOfGuest: { type: Number },   
@@ -10,4 +10,5 @@ const PlaceSchema = new Schema({
     creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
-module.exports = mongoose.model("Bill", PlaceSchema);
+const Bill = mongoose.model("Bill", PlaceSchema);
+export default Bill;

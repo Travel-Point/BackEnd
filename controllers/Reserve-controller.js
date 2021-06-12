@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const { validationResult } = require('express-validator');
-const HttpError = require('../utils/Http-error');
+import mongoose from 'mongoose';
+import { validationResult } from 'express-validator';
+import HttpError from '../utils/Http-error.js';
 
-const User = require('../models/Users-model');
-const RT = require('../models/Reserve-model');
+import User from '../models/Users-model.js';
+import RT from '../models/Reserve-model.js';
 
-const bill = async (req, res, next) => {
+export const bill = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(
@@ -50,7 +50,7 @@ const bill = async (req, res, next) => {
     res.json({ message: 'Reserve successfully.', bill: createdBill });
 };
 
-const getBillByID = async (req, res, next) => {
+export const getBillByID = async (req, res, next) => {
     const billId = req.params.billId;
 
     let bill;
@@ -70,7 +70,7 @@ const getBillByID = async (req, res, next) => {
     res.json({ bill: bill.toObject({ getters: true }) });
 };
 
-const getBillByUserId = async (req, res, next) => {
+export const getBillByUserId = async (req, res, next) => {
     const userId = req.params.uid;
 
     let userWithBills;
@@ -92,7 +92,7 @@ const getBillByUserId = async (req, res, next) => {
     });
 };
 
-const deleteBill = async (req, res, next) => {
+export const deleteBill = async (req, res, next) => {
     const billId = req.params.billId;
 
     let bill;
@@ -124,8 +124,3 @@ const deleteBill = async (req, res, next) => {
     }
     res.status(500).json({ message: "Deleted." });
 };
-
-exports.bill = bill;
-exports.getBillByID = getBillByID;
-exports.getBillByUserId = getBillByUserId;
-exports.deleteBill = deleteBill;
