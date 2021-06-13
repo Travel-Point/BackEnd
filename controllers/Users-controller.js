@@ -40,18 +40,18 @@ export const signup = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { name, password } = req.body;
 
     let existingUser;
     try {
-        existingUser = await User.findOne({ email: email })
+        existingUser = await User.findOne({ name: name })
     } catch (error) {
-        const err = new HttpError('Can not find this email, please try again.', 401);
+        const err = new HttpError('Can not find this user, please try again.', 401);
         return next(err);
     }
 
     if (!existingUser || existingUser.password !== password) {
-        const err = new HttpError('Email or password is wrong, please try again.', 500);
+        const err = new HttpError('Username or password is wrong, please try again.', 500);
         return next(err);
     }
 

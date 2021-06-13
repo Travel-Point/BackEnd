@@ -7,7 +7,7 @@ const PlaceSchema = new Schema({
     guestName: { type: String },
     isSmoking: { type: Boolean },
     dateReserve: { type: Date },
-    creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+    //creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 
 const Bill = mongoose.model("Bill", PlaceSchema);

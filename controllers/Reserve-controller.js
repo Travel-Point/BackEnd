@@ -12,37 +12,38 @@ export const bill = async (req, res, next) => {
             new HttpError('Invalid data, please try again.', 400)
         );
     }
-    const userId = req.params.uid;
-    const { numberOfGuest, isSmoking, dateReserve } = req.body;
+    //const userId = req.params.uid;
+    const { numberOfGuest, isSmoking, dateReserve, guestName } = req.body;
 
-    let user;
-    try {
-        user = await User.findById(userId);
-    } catch (error) {
-        const err = new HttpError("Can not find user id.", 401);
-        return next(err);
-    }
+    // let user;
+    // try {
+    //     user = await User.findById(userId);
+    // } catch (error) {
+    //     const err = new HttpError("Can not find user id.", 401);
+    //     return next(err);
+    // }
 
-    if (!user) {
-        const err = new HttpError("Can not find this user.", 402);
-        return next(err);
-    }
+    // if (!user) {
+    //     const err = new HttpError("Can not find this user.", 402);
+    //     return next(err);
+    // }
 
     const createdBill = new RT({
         numberOfGuest,
-        guestName: user.name,
+        //guestName: user.name,
+        guestName,
         isSmoking,
         dateReserve,
-        creator: userId,
+        //creator: userId,
     })
 
     try {
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        await createdBill.save({ session: sess });
-        user.bill.push(createdBill);
-        await user.save({ sess: sess });
-        await sess.commitTransaction();
+        // const sess = await mongoose.startSession();
+        // sess.startTransaction();
+        await createdBill.save();
+        //user.bill.push(createdBill);
+        //await user.save({ sess: sess });
+        //await sess.commitTransaction();
     } catch (err) {
         const error = new HttpError("Something went wrong, please try again.", 500);
         return next(error);

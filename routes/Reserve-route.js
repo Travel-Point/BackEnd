@@ -20,7 +20,7 @@ import {
 
 const router = express.Router();
 
-router.post("/:uid", bill);
+router.post("/", bill);
 router.get("/user/:uid", getBillByUserId);
 router.get("/:billId", getBillByID);
 router.delete("/:billId", deleteBill);
