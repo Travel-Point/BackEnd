@@ -9,7 +9,7 @@ export const signup = async (req, res, next) => {
             new HttpError('Invalid data, please try again.', 401)
         );
     }
-    const { name, email, password } = req.body;
+    const { name, email, password, image } = req.body;
 
     let existingUser;
     try {
@@ -28,6 +28,7 @@ export const signup = async (req, res, next) => {
         name,
         email,
         password,
+        image,
     })
 
     try {
